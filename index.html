@@ -1,52 +1,65 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Morphine Calculator</title>
+<title>Morphine Infusion Calculator</title>
+
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="card">
-<h1>Morphine Infusion Calculator</h1>
+  <h1>Morphine Infusion Calculator</h1>
 
-<label>Renal function (eGFR ml/min/1.73m²)</label>
-<input id="egfr" type="number" placeholder="เช่น 45">
+  <label>Renal function (eGFR ml/min/1.73m²)</label>
+  <input id="egfr" type="number" placeholder="เช่น 45">
+  <div class="note" id="renalNote"></div>
 
-<div class="note" id="renalNote"></div>
+  <label>ความเข้มข้น</label>
+  <select id="concentration">
+    <option value="">-- เลือกความเข้มข้น --</option>
+    <option value="10">1 mg : 10 ml</option>
+    <option value="5">1 mg : 5 ml</option>
+    <option value="custom">กำหนดเอง</option>
+  </select>
 
-<label>ความเข้มข้น</label>
-<select id="concentration">
-<option value="10">1 mg : 10 ml</option>
-<option value="5">1 mg : 5 ml</option>
-<option value="custom">กำหนดเอง</option>
-</select>
+  <input id="customConc" type="number" placeholder="ml ต่อ 1 mg" style="display:none">
 
-<input id="customConc" type="number" placeholder="ml ต่อ 1 mg" style="display:none">
+  <label>เมื่อเปลี่ยนความเข้มข้น</label>
+  <div class="toggle-group">
+    <label>
+      <input type="radio" name="concAction" value="clear" checked>
+      ล้างค่า (Clear)
+    </label>
+    <label>
+      <input type="radio" name="concAction" value="recalc">
+      คำนวณใหม่อัตโนมัติ (Recalculate)
+    </label>
+  </div>
 
-<label>Rate (cc/hr)</label>
-<input id="ccHr" type="number" value="5">
+  <label>Rate (cc/hr)</label>
+  <input id="ccHr" type="number" step="0.01">
 
-<label>หรือ mg/hr</label>
-<input id="mgHr" type="number">
+  <label>หรือ mg/hr</label>
+  <input id="mgHr" type="number" step="0.01">
 
-<label>ระยะเวลาให้ยา (ชั่วโมง)</label>
-<input id="hours" type="number" value="24">
+  <label>ระยะเวลาให้ยา (ชั่วโมง)</label>
+  <input id="hours" type="number" step="0.1">
 
-<button onclick="calculate()">คำนวณ</button>
+  <button onclick="calculate()">คำนวณ</button>
 
-<div class="result" id="result"></div>
+  <div class="result" id="result"></div>
 </div>
 
 <script src="app.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
-navigator.serviceWorker.register('service-worker.js');
+  navigator.serviceWorker.register('service-worker.js');
 }
 </script>
 
